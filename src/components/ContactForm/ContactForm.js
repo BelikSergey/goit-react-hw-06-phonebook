@@ -21,30 +21,41 @@ class ContactForm extends Component {
   handleSubmitForm = (e) => {
     e.preventDefault();
     // console.log('есть сабмит формы');
-    const { name, number } = this.state;
-    // this.props.onSubmit(this.state)
-    // const isValidForm = this.validateForm(name, number);
-    // if (isValidForm) {
+    const{name,number}= this.state;
+    const isValidForm = this.validateForm(name, number);
+    if (isValidForm) {
       // console.log('форма прошла валидацию и отправила item');
       this.props.onSubmit({ id: nanoid(), name, number });
-    // } else return;
-    // this.reset();
+    } else return;
+    this.reset();
   };
-  // validateForm = (name, number) => {
-  //   // const { name, number } = this.state;
-  //   const { onChekunike } = this.props;
-  //   if (!name || !number) {
-  //     toast.warn('Empty fields!!! Please fill',{
-  //       autoClose:2000,
-  //       hideProgressBar: true,
-  //       pauseOnHover: false,
-  //       // draggable: false,
-  //       position: "top-center",
-  //     });
-  //     return false;
-  //   }
-  //   return onChekunike(name);
-  // };
+  handleUniceContact = (name) => {
+      // const { contacts } = this.state;
+      const isContactThere = this.props.contacts.find((contact) => contact.name === name);
+      if (isContactThere) {
+        toast.error('Contact is exist', {
+          autoClose: 2000,
+          hideProgressBar: true,
+          pauseOnHover: false,
+          // draggable: false,
+          position: "top-right",
+      })
+        return;
+      }
+      return !isContactThere;
+    };
+  validateForm = (name, number) => {
+    if (!name || !number) {
+      toast.warn('Empty fields!!! Please fill',{
+        autoClose:2000,
+        hideProgressBar: true,
+        pauseOnHover: false,
+        position: "top-center",
+      });
+      return false;
+    }
+    return this.handleUniceContact(name);
+  };
   reset = () => {
     this.setState({
       name: "",
@@ -60,7 +71,6 @@ class ContactForm extends Component {
         <input className={s.FormInput}
           type="text"
           name="name"
-          // id={this.nameId}
           placeholder="Enter name"
           value={name}
           onChange={this.handleInputChange}
@@ -82,9 +92,13 @@ class ContactForm extends Component {
     );
   }
 }
+const mapStateToProps = ({contacts:{items}}) => ({
+  contacts: items,
+})
+
 
 const mapDispatchToProps = dispatch =>({
   onSubmit: (item)=> dispatch(ContactsActions.addItems(item))
 })
 
- export default connect(null, mapDispatchToProps)(ContactForm)
+ export default connect(mapStateToProps, mapDispatchToProps)(ContactForm)

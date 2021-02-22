@@ -1,8 +1,6 @@
 import { Component } from "react";
 import {connect}  from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
 import { CSSTransition } from 'react-transition-group';
 import styles from './App.module.css';
 import ContactsList from "./components/ContactsList";
@@ -14,13 +12,6 @@ import Container from './UI/Container/Container';
 
 
 
-//  function App () {
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
 
 
 
@@ -81,6 +72,7 @@ class App extends Component {
   // };
 
   render() {
+    // console.log(contacts);
     // const { filter, contacts } = this.state;
     // const filteredContacts = this.filterContacts();
     return (
@@ -88,20 +80,20 @@ class App extends Component {
         <Container>
           <LogoPhoneBook/>
         <ContactForm
-          onSubmit={this.handleSubmitForm}
+          // onSubmit={this.handleSubmitForm}
           // onChekunike={this.handleUniceContact}
         />
           </Container>
           <Container>
-          {/* <CSSTransition in={contacts.length > 1} 
+          <CSSTransition in={this.props.contacts.length > 1} 
           timeout={250} 
           classNames={styles}
-          unmountOnExit> */}
+          unmountOnExit>
              <div className={styles.SearchForm}>
              <p>Find contacts by name</p>
              <Filter/>
              </div>
-         {/* </CSSTransition> */}
+         </CSSTransition>
         <ContactsList />
         </Container>
          <ToastContainer position="top-left" autoClose={2000} />
@@ -110,7 +102,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({contacts: {items}}) => ({
+const mapStateToProps = ({contacts:{items}}) => ({
   contacts: items,
 })
 

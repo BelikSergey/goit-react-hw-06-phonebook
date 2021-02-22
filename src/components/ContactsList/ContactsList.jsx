@@ -41,14 +41,6 @@ const mapStateToProps = ({contacts:{items, filter}}) => ({
   contacts: filterContacts(items, filter),
 })
 
-// {
-//   const { items, filter } = state;
-//   const visibleList = filterContacts(items, filter )
-
-//   return {contacts: visibleList}
- 
-// }
-
 const mapDispatchToProps = dispatch => ({
   onRemove: (id)=> dispatch(ContactsActions.removeItem(id))
 })
