@@ -74,7 +74,7 @@ class ContactForm extends Component {
           placeholder="Enter name"
           value={name}
           onChange={this.handleInputChange}
-        ></input>
+        />
 
         <p>Number</p>
         <input className={s.FormInput}
@@ -84,7 +84,7 @@ class ContactForm extends Component {
           placeholder="345-67-89"
           value={number}
           onChange={this.handleInputChange}
-        ></input>
+        />
         <button className={s.buttonForm} type="submit">
           Add contact
         </button>

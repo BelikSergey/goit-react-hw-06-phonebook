@@ -79,7 +79,7 @@ class App extends Component {
       <>
         <Container>
           <LogoPhoneBook/>
-        <ContactForm
+        <ContactForm 
           // onSubmit={this.handleSubmitForm}
           // onChekunike={this.handleUniceContact}
         />
@@ -107,4 +107,4 @@ const mapStateToProps = ({contacts:{items}}) => ({
 })
 
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps)(App);
